@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 class GenderHobbyProvider extends ChangeNotifier {
   bool isCricket = false, isFootball = false, isSinging = false;
   String gender = 'gender', male = 'male', feMale = 'feMale';
+  List<String> stream = ['arts', 'commerce', 'science'];
+  static String? selectedStream;
+  bool isActive = false;
+
   List<String> hobbyList = [];
   bool isSubmited = false;
 
@@ -33,10 +37,23 @@ class GenderHobbyProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void streamMethod(String value) {
+    selectedStream = value;
+
+    notifyListeners();
+  }
+
   void singingMethod(bool value) {
     isSubmited = false;
     isSinging = value;
     isSinging == true ? hobbyList.add('Singing') : hobbyList.remove('Singing');
+    notifyListeners();
+  }
+
+  void switchMethod(bool value) {
+    isSubmited = false;
+    isActive = value;
+
     notifyListeners();
   }
 }
