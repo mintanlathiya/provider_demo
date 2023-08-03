@@ -14,9 +14,13 @@ class _GenderHobbyDemoUiState extends State<GenderHobbyDemoUi> {
   // String gender = 'gender', male = 'male', feMale = 'feMale';
   //List hobbyList = [];
   // bool isSubmited = false;
+  //bool isActive = false;
+
   @override
   Widget build(BuildContext context) {
     print('select is build');
+    // GenderHobbyProvider genderHobbyProvider =
+    //     context.read<GenderHobbyProvider>();
 
     return Scaffold(
       body: Padding(
@@ -115,6 +119,33 @@ class _GenderHobbyDemoUiState extends State<GenderHobbyDemoUi> {
                             selector: (context, obj) => obj.isSinging),
                         const Text('Singing'),
                       ],
+                    ),
+                    Selector<GenderHobbyProvider, List>(
+                      shouldRebuild: (previous, next) => true,
+                      builder: (context, value, child) => DropdownButton(
+                        items: value
+                            .map((e) =>
+                                DropdownMenuItem(value: e, child: Text(e)))
+                            .toList(),
+                        onChanged: (value) {
+                          context
+                              .read<GenderHobbyProvider>()
+                              .streamMethod(value as String);
+                        },
+                        value: GenderHobbyProvider.selectedStream,
+                      ),
+                      selector: (contex, obj) => obj.stream,
+                    ),
+                    Selector<GenderHobbyProvider, bool>(
+                      builder: (context, isActive, child) => Switch(
+                        value: isActive,
+                        onChanged: (value) {
+                          context
+                              .read<GenderHobbyProvider>()
+                              .switchMethod(value);
+                        },
+                      ),
+                      selector: (contex, obj) => obj.isActive,
                     )
                   ],
                 )
@@ -137,6 +168,7 @@ class _GenderHobbyDemoUiState extends State<GenderHobbyDemoUi> {
                         children: [
                           Text('Gender :${obj.gender} '),
                           Text('Hobby :  ${obj.hobbyList}'),
+                          Text('Stream : ${obj.stream}')
                         ],
                       ),
                     )
