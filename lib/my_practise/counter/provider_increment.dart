@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 
 class IncrementDecrementProvider extends ChangeNotifier {
-  int countIncrement = 0;
+  int count = 0;
   int doubleCount = 0;
 
   void increment() {
-    countIncrement++;
-    print(countIncrement);
+    count++;
+    print(count);
     notifyListeners();
   }
 
   void decrement() {
-    countIncrement--;
-    print(doubleCount);
+    count--;
+    print(count);
     notifyListeners();
   }
 
   void increment2() {
     doubleCount += 2;
-    print(countIncrement);
+    print(doubleCount);
     notifyListeners();
   }
 

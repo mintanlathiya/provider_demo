@@ -33,7 +33,7 @@ class _CounterIncrementDecrementUiState
               //     return Text(
               //       context
               //           .watch<IncrementDecrementProvider>()
-              //           .countIncrement
+              //           .count
               //           .toString(),
               //     );
               //   },
@@ -44,7 +44,7 @@ class _CounterIncrementDecrementUiState
 
                   return Text(value.toString());
                 },
-                selector: (context, obj) => obj.countIncrement,
+                selector: (context, obj) => obj.count,
               ),
               IconButton(
                   onPressed: () {
