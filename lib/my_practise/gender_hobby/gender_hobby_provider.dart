@@ -4,8 +4,12 @@ class GenderHobbyProvider extends ChangeNotifier {
   bool isCricket = false, isFootball = false, isSinging = false;
   String gender = 'gender', male = 'male', feMale = 'feMale';
   List<String> stream = ['arts', 'commerce', 'science'];
-  static String? selectedStream;
+  String? selectedStream;
   bool isActive = false;
+  double selectedSalary = 1000;
+  TextEditingController txtFirstNameEditingController = TextEditingController();
+  TextEditingController txtSurNameEditingController = TextEditingController();
+  TextEditingController txtLastNameEditingController = TextEditingController();
 
   List<String> hobbyList = [];
   bool isSubmited = false;
@@ -53,6 +57,13 @@ class GenderHobbyProvider extends ChangeNotifier {
   void switchMethod(bool value) {
     isSubmited = false;
     isActive = value;
+
+    notifyListeners();
+  }
+
+  void sliderMethod(double value) {
+    isSubmited = false;
+    selectedSalary = value;
 
     notifyListeners();
   }

@@ -27,6 +27,35 @@ class _GenderHobbyDemoUiState extends State<GenderHobbyDemoUi> {
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
+            Selector<GenderHobbyProvider, TextEditingController>(
+              builder: (context, value, child) => TextField(
+                controller: value,
+              ),
+              selector: (contex, obj) => obj.txtFirstNameEditingController,
+            ),
+            Selector<GenderHobbyProvider, TextEditingController>(
+              builder: (context, value, child) => TextField(
+                controller: value,
+              ),
+              selector: (contex, obj) => obj.txtSurNameEditingController,
+            ),
+            Selector<GenderHobbyProvider, TextEditingController>(
+              builder: (context, value, child) => TextField(
+                controller: value,
+              ),
+              selector: (contex, obj) => obj.txtLastNameEditingController,
+            ),
+            Selector<GenderHobbyProvider, double>(
+              builder: (context, value, child) => Slider(
+                value: value,
+                onChanged: (value) {
+                  context.read<GenderHobbyProvider>().sliderMethod(value);
+                },
+                min: 1000,
+                max: 50000,
+              ),
+              selector: (contex, obj) => obj.selectedSalary,
+            ),
             Consumer<GenderHobbyProvider>(
               builder: (context, obj, child) => Row(
                 children: [
@@ -132,7 +161,8 @@ class _GenderHobbyDemoUiState extends State<GenderHobbyDemoUi> {
                               .read<GenderHobbyProvider>()
                               .streamMethod(value as String);
                         },
-                        value: GenderHobbyProvider.selectedStream,
+                        value:
+                            context.read<GenderHobbyProvider>().selectedStream,
                       ),
                       selector: (contex, obj) => obj.stream,
                     ),
@@ -146,7 +176,7 @@ class _GenderHobbyDemoUiState extends State<GenderHobbyDemoUi> {
                         },
                       ),
                       selector: (contex, obj) => obj.isActive,
-                    )
+                    ),
                   ],
                 )
               ],
@@ -162,13 +192,21 @@ class _GenderHobbyDemoUiState extends State<GenderHobbyDemoUi> {
             Consumer<GenderHobbyProvider>(builder: (context, obj, child) {
               return obj.isSubmited == true
                   ? SizedBox(
-                      height: 200,
+                      height: 300,
                       width: double.infinity,
                       child: Column(
                         children: [
+                          Text(
+                              'Name :${obj.txtFirstNameEditingController.text} '),
+                          Text(
+                              'MiddleName :${obj.txtSurNameEditingController.text} '),
+                          Text(
+                              'LastName :${obj.txtLastNameEditingController.text} '),
                           Text('Gender :${obj.gender} '),
                           Text('Hobby :  ${obj.hobbyList}'),
-                          Text('Stream : ${obj.stream}')
+                          Text('Stream : ${obj.selectedStream}'),
+                          Text('Switch : ${obj.isActive}'),
+                          Text('salary : ${obj.selectedSalary}')
                         ],
                       ),
                     )
