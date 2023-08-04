@@ -237,15 +237,20 @@ class _SimpleCrudDemoUiState extends State<SimpleCrudDemoUi> {
                                                 hintText: 'LastName'),
                                           ),
                                           const SizedBox(height: 5),
-                                          Slider(
-                                            value: obj.selectedSalaryUpdate,
-                                            onChanged: (value) {
-                                              context
-                                                  .read<SimpleCrudProvider>()
-                                                  .sliderMethodDialog(value);
-                                            },
-                                            min: 1000,
-                                            max: 50000,
+                                          Selector<SimpleCrudProvider, double>(
+                                            builder: (context, value, child) =>
+                                                Slider(
+                                              value: value,
+                                              onChanged: (value) {
+                                                context
+                                                    .read<SimpleCrudProvider>()
+                                                    .sliderMethodDialog(value);
+                                              },
+                                              min: 1000,
+                                              max: 50000,
+                                            ),
+                                            selector: (contex, obj) =>
+                                                obj.selectedSalaryUpdate,
                                           ),
                                           const SizedBox(height: 5),
                                           Consumer<SimpleCrudProvider>(
