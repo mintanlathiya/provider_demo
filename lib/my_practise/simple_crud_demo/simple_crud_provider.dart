@@ -2,11 +2,25 @@ import 'package:flutter/material.dart';
 
 class SimpleCrudProvider extends ChangeNotifier {
   bool isCricket = false, isFootball = false, isSinging = false;
+  bool isCricketUpdate = false,
+      isFootballUpdate = false,
+      isSingingUpdate = false;
+
   String gender = 'gender', male = 'male', feMale = 'feMale';
+  String genderUpdate = 'gender', maleUpdate = 'male', feMaleUpdate = 'feMale';
+
   List<String> stream = ['arts', 'commerce', 'science'];
+  List<String> streamUpdate = ['arts', 'commerce', 'science'];
+
   String? selectedStream;
+  String? selectedStreamUpdate;
+
   bool isActive = false;
+  bool isActiveUpdate = false;
+
   double selectedSalary = 1000;
+  double selectedSalaryUpdate = 1000;
+
   TextEditingController txtFirstNameEditingController = TextEditingController();
   TextEditingController txtMiddleEditingController = TextEditingController();
   TextEditingController txtLastNameEditingController = TextEditingController();
@@ -19,11 +33,17 @@ class SimpleCrudProvider extends ChangeNotifier {
   List<Map<String, dynamic>> userData = [];
   int selectedIndex = 0;
   List<String> hobbyList = [];
+
   bool isSubmited = false;
 
   void checkGender(String value) {
     isSubmited = false;
     gender = value;
+    notifyListeners();
+  }
+
+  void checkGenderDialog(String value) {
+    genderUpdate = value;
     notifyListeners();
   }
 
@@ -39,10 +59,26 @@ class SimpleCrudProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void cricketMethodDialog(bool value) {
+    isCricketUpdate = value;
+    isCricketUpdate == true
+        ? hobbyList.add('Cricket')
+        : hobbyList.remove('Cricket');
+    notifyListeners();
+  }
+
   void footballMethod(bool value) {
     isSubmited = false;
     isFootball = value;
     isFootball == true
+        ? hobbyList.add('Football')
+        : hobbyList.remove('Football');
+    notifyListeners();
+  }
+
+  void footballMethodDialog(bool value) {
+    isFootballUpdate = value;
+    isFootballUpdate == true
         ? hobbyList.add('Football')
         : hobbyList.remove('Football');
     notifyListeners();
@@ -55,8 +91,22 @@ class SimpleCrudProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void singingMethodDialog(bool value) {
+    isSingingUpdate = value;
+    isSingingUpdate == true
+        ? hobbyList.add('Singing')
+        : hobbyList.remove('Singing');
+    notifyListeners();
+  }
+
   void streamMethod(String value) {
     selectedStream = value;
+
+    notifyListeners();
+  }
+
+  void streamMethodDialog(String value) {
+    selectedStreamUpdate = value;
 
     notifyListeners();
   }
@@ -68,6 +118,12 @@ class SimpleCrudProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void switchMethodDialog(bool value) {
+    isActiveUpdate = value;
+
+    notifyListeners();
+  }
+
   void sliderMethod(double value) {
     isSubmited = false;
     selectedSalary = value;
@@ -75,7 +131,23 @@ class SimpleCrudProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void sliderMethodDialog(double value) {
+    selectedSalaryUpdate = value;
+
+    notifyListeners();
+  }
+
   void addUserData() {
+    hobbyList.clear();
+    if (isCricket == true) {
+      hobbyList.add('Cricket');
+    }
+    if (isFootball == true) {
+      hobbyList.add('Football');
+    }
+    if (isSinging == true) {
+      hobbyList.add('Singing');
+    }
     userData.add({
       'name': txtFirstNameEditingController.text,
       'middle': txtMiddleEditingController.text,
@@ -106,47 +178,51 @@ class SimpleCrudProvider extends ChangeNotifier {
     txtUpdateFirstNameEditingController.clear();
     txtUpdateMiddleEditingController.clear();
     txtLastNameEditingController.clear();
-    selectedSalary = 1000;
-    gender = 'gender';
+    selectedSalaryUpdate = 1000;
+    genderUpdate = 'gender';
     hobbyList.clear();
-    isCricket = false;
-    isFootball = false;
-    isSinging = false;
-    isActive = false;
-    selectedStream = null;
+    isCricketUpdate = false;
+    isFootballUpdate = false;
+    isSingingUpdate = false;
+    isActiveUpdate = false;
+    selectedStreamUpdate = null;
   }
 
-  void onTapList(int selectedIndex) {
+  void onTapUpdate() {
     txtUpdateFirstNameEditingController.text = userData[selectedIndex]['name'];
     txtUpdateMiddleEditingController.text = userData[selectedIndex]['middle'];
     txtUpdateLastNameEditingController.text =
         userData[selectedIndex]['lastName'];
-    selectedSalary = userData[selectedIndex]['salary'];
-    gender = userData[selectedIndex]['gender'];
-    hobbyList = userData[selectedIndex]['hobby'].map((e) => e).toList();
+    selectedSalaryUpdate = userData[selectedIndex]['salary'];
+    genderUpdate = userData[selectedIndex]['gender'];
+    //hobbyList = userData[selectedIndex]['hobby'].map((e) => e).toList();
     if (userData[selectedIndex]['hobby'].contains('Cricket')) {
-      isCricket = true;
+      isCricketUpdate = true;
     }
     if (userData[selectedIndex]['hobby'].contains('Football')) {
-      isFootball = true;
+      isFootballUpdate = true;
     }
     if (userData[selectedIndex]['hobby'].contains('Singing')) {
-      isSinging = true;
+      isSingingUpdate = true;
     }
-    selectedStream = userData[selectedIndex]['stream'];
-    isActive = userData[selectedIndex]['active'];
+    selectedStreamUpdate = userData[selectedIndex]['stream'];
+    isActiveUpdate = userData[selectedIndex]['active'];
+
+    notifyListeners();
   }
 
   void updateMethod() {
     userData[selectedIndex]['name'] = txtUpdateFirstNameEditingController.text;
     userData[selectedIndex]['middle'] = txtUpdateMiddleEditingController.text;
+
     userData[selectedIndex]['lastName'] =
         txtUpdateLastNameEditingController.text;
-    userData[selectedIndex]['salary'] = selectedSalary;
-    userData[selectedIndex]['gender'] = gender;
+    userData[selectedIndex]['salary'] = selectedSalaryUpdate;
+    userData[selectedIndex]['gender'] = genderUpdate;
     userData[selectedIndex]['hobby'] = List.from(hobbyList.map((e) => e));
-    userData[selectedIndex]['stream'] = selectedStream;
-    userData[selectedIndex]['active'] = isActive;
+    userData[selectedIndex]['stream'] = selectedStreamUpdate;
+    userData[selectedIndex]['active'] = isActiveUpdate;
+    notifyListeners();
   }
 
   void updateButton(dynamic context) {

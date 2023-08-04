@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_demo/my_practise/simple_crud_demo/simple_crud_provider.dart';
@@ -201,8 +203,9 @@ class _SimpleCrudDemoUiState extends State<SimpleCrudDemoUi> {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
-                              obj.onTapList(index);
-
+                              obj.selectedIndex = index;
+                              log('${obj.selectedIndex}');
+                              context.read<SimpleCrudProvider>().onTapUpdate();
                               showDialog(
                                 context: context,
                                 builder: (context) {
@@ -210,65 +213,39 @@ class _SimpleCrudDemoUiState extends State<SimpleCrudDemoUi> {
                                     children: [
                                       Column(
                                         children: [
-                                          Selector<SimpleCrudProvider,
-                                              TextEditingController>(
-                                            builder: (context, value, child) =>
-                                                TextField(
-                                              controller: value,
-                                              decoration: const InputDecoration(
-                                                border: OutlineInputBorder(),
-                                                hintText: 'Name',
-                                                labelText: 'Name',
-                                              ),
-                                            ),
-                                            selector: (contex, obj) => obj
+                                          TextField(
+                                            controller: obj
                                                 .txtUpdateFirstNameEditingController,
+                                            decoration: const InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                hintText: 'Name'),
                                           ),
                                           const SizedBox(height: 5),
-                                          Selector<SimpleCrudProvider,
-                                              TextEditingController>(
-                                            builder: (context, value, child) =>
-                                                TextField(
-                                              controller: value,
-                                              decoration: const InputDecoration(
-                                                border: OutlineInputBorder(),
-                                                hintText: 'MiddleName',
-                                                labelText: 'MiddleName',
-                                              ),
-                                            ),
-                                            selector: (contex, obj) => obj
+                                          TextField(
+                                            controller: obj
                                                 .txtUpdateMiddleEditingController,
-                                          ),
-                                          const SizedBox(height: 5),
-                                          Selector<SimpleCrudProvider,
-                                              TextEditingController>(
-                                            builder: (context, value, child) =>
-                                                TextField(
-                                              controller: value,
-                                              decoration: const InputDecoration(
+                                            decoration: const InputDecoration(
                                                 border: OutlineInputBorder(),
-                                                hintText: 'LastName',
-                                                labelText: 'LastName',
-                                              ),
-                                            ),
-                                            selector: (contex, obj) => obj
-                                                .txtUpdateLastNameEditingController,
+                                                hintText: 'MiddleName'),
                                           ),
                                           const SizedBox(height: 5),
-                                          Selector<SimpleCrudProvider, double>(
-                                            builder: (context, value, child) =>
-                                                Slider(
-                                              value: value,
-                                              onChanged: (value) {
-                                                context
-                                                    .read<SimpleCrudProvider>()
-                                                    .sliderMethod(value);
-                                              },
-                                              min: 1000,
-                                              max: 50000,
-                                            ),
-                                            selector: (contex, obj) =>
-                                                obj.selectedSalary,
+                                          TextField(
+                                            controller: obj
+                                                .txtUpdateLastNameEditingController,
+                                            decoration: const InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                hintText: 'LastName'),
+                                          ),
+                                          const SizedBox(height: 5),
+                                          Slider(
+                                            value: obj.selectedSalaryUpdate,
+                                            onChanged: (value) {
+                                              context
+                                                  .read<SimpleCrudProvider>()
+                                                  .sliderMethodDialog(value);
+                                            },
+                                            min: 1000,
+                                            max: 50000,
                                           ),
                                           const SizedBox(height: 5),
                                           Consumer<SimpleCrudProvider>(
@@ -278,28 +255,30 @@ class _SimpleCrudDemoUiState extends State<SimpleCrudDemoUi> {
                                                 const Text('gender :  '),
                                                 const Text('Male'),
                                                 Radio(
-                                                  value: obj.male,
-                                                  groupValue: obj.gender,
+                                                  value: obj.maleUpdate,
+                                                  groupValue: obj.genderUpdate,
                                                   onChanged: (value) {
                                                     print('select is Male');
 
                                                     context
                                                         .read<
                                                             SimpleCrudProvider>()
-                                                        .checkGender(value!);
+                                                        .checkGenderDialog(
+                                                            value!);
                                                     //gender = value!;
                                                   },
                                                 ),
                                                 const Text('FeMale'),
                                                 Radio(
-                                                  value: obj.feMale,
-                                                  groupValue: obj.gender,
+                                                  value: obj.feMaleUpdate,
+                                                  groupValue: obj.genderUpdate,
                                                   onChanged: (value) {
                                                     print('select is feMale');
                                                     context
                                                         .read<
                                                             SimpleCrudProvider>()
-                                                        .checkGender(value!);
+                                                        .checkGenderDialog(
+                                                            value!);
                                                     // gender = value!;
                                                   },
                                                 ),
@@ -315,19 +294,20 @@ class _SimpleCrudDemoUiState extends State<SimpleCrudDemoUi> {
                                                       child) {
                                                     print('select is Cricket');
                                                     return Checkbox(
-                                                      value: isCricket,
+                                                      value:
+                                                          obj.isCricketUpdate,
                                                       onChanged: (value) {
                                                         context
                                                             .read<
                                                                 SimpleCrudProvider>()
-                                                            .cricketMethod(
+                                                            .cricketMethodDialog(
                                                                 value!);
                                                         //isFootball = value!;
                                                       },
                                                     );
                                                   },
                                                   selector: (context, obj) =>
-                                                      obj.isCricket),
+                                                      obj.isCricketUpdate),
                                               const Text('Cricket'),
                                               Selector<SimpleCrudProvider,
                                                       bool>(
@@ -335,19 +315,20 @@ class _SimpleCrudDemoUiState extends State<SimpleCrudDemoUi> {
                                                       child) {
                                                     print('select is Football');
                                                     return Checkbox(
-                                                      value: isFootball,
+                                                      value:
+                                                          obj.isFootballUpdate,
                                                       onChanged: (value) {
                                                         context
                                                             .read<
                                                                 SimpleCrudProvider>()
-                                                            .footballMethod(
+                                                            .footballMethodDialog(
                                                                 value!);
                                                         //isFootball = value!;
                                                       },
                                                     );
                                                   },
                                                   selector: (context, obj) =>
-                                                      obj.isFootball),
+                                                      obj.isFootballUpdate),
                                               const Text('Football'),
                                               Selector<SimpleCrudProvider,
                                                       bool>(
@@ -355,19 +336,20 @@ class _SimpleCrudDemoUiState extends State<SimpleCrudDemoUi> {
                                                       child) {
                                                     print('select is Singing');
                                                     return Checkbox(
-                                                      value: isSinging,
+                                                      value:
+                                                          obj.isSingingUpdate,
                                                       onChanged: (value) {
                                                         context
                                                             .read<
                                                                 SimpleCrudProvider>()
-                                                            .singingMethod(
+                                                            .singingMethodDialog(
                                                                 value!);
                                                         // isSinging = value!;
                                                       },
                                                     );
                                                   },
                                                   selector: (context, obj) =>
-                                                      obj.isSinging),
+                                                      obj.isSingingUpdate),
                                               const Text('Singing'),
                                             ],
                                           ),
@@ -384,29 +366,29 @@ class _SimpleCrudDemoUiState extends State<SimpleCrudDemoUi> {
                                               onChanged: (value) {
                                                 context
                                                     .read<SimpleCrudProvider>()
-                                                    .streamMethod(
+                                                    .streamMethodDialog(
                                                         value as String);
                                               },
                                               value: context
                                                   .read<SimpleCrudProvider>()
-                                                  .selectedStream,
+                                                  .selectedStreamUpdate,
                                             ),
                                             selector: (contex, obj) =>
-                                                obj.stream,
+                                                obj.streamUpdate,
                                           ),
                                           Selector<SimpleCrudProvider, bool>(
                                             builder:
                                                 (context, isActive, child) =>
                                                     Switch(
-                                              value: isActive,
+                                              value: obj.isActiveUpdate,
                                               onChanged: (value) {
                                                 context
                                                     .read<SimpleCrudProvider>()
-                                                    .switchMethod(value);
+                                                    .switchMethodDialog(value);
                                               },
                                             ),
                                             selector: (contex, obj) =>
-                                                obj.isActive,
+                                                obj.isActiveUpdate,
                                           ),
                                           const SizedBox(height: 5),
                                           Row(
