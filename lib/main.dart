@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:provider_demo/my_practise/gender_hobby/gender_hobby_exapp.dart';
-import 'package:provider_demo/my_practise/gender_hobby/gender_hobby_provider.dart';
+import 'package:provider_demo/my_practise/simple_crud_demo/simple_crud_demo_app.dart';
+import 'package:provider_demo/my_practise/simple_crud_demo/simple_crud_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,12 +16,12 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => GenderHobbyProvider(),
+          create: (context) => SimpleCrudProvider(),
         ),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: GenderHobbyDemoUi(),
+        home: SimpleCrudDemoUi(),
       ),
     );
   }
