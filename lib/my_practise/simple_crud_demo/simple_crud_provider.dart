@@ -53,49 +53,33 @@ class SimpleCrudProvider extends ChangeNotifier {
   }
 
   void cricketMethod(bool value) {
-    isSubmited = false;
     isCricket = value;
-    isCricket == true ? hobbyList.add('Cricket') : hobbyList.remove('Cricket');
     notifyListeners();
   }
 
   void cricketMethodDialog(bool value) {
     isCricketUpdate = value;
-    isCricketUpdate == true
-        ? hobbyList.add('Cricket')
-        : hobbyList.remove('Cricket');
+
     notifyListeners();
   }
 
   void footballMethod(bool value) {
-    isSubmited = false;
     isFootball = value;
-    isFootball == true
-        ? hobbyList.add('Football')
-        : hobbyList.remove('Football');
     notifyListeners();
   }
 
   void footballMethodDialog(bool value) {
     isFootballUpdate = value;
-    isFootballUpdate == true
-        ? hobbyList.add('Football')
-        : hobbyList.remove('Football');
     notifyListeners();
   }
 
   void singingMethod(bool value) {
-    isSubmited = false;
     isSinging = value;
-    isSinging == true ? hobbyList.add('Singing') : hobbyList.remove('Singing');
     notifyListeners();
   }
 
   void singingMethodDialog(bool value) {
     isSingingUpdate = value;
-    isSingingUpdate == true
-        ? hobbyList.add('Singing')
-        : hobbyList.remove('Singing');
     notifyListeners();
   }
 
@@ -181,21 +165,19 @@ class SimpleCrudProvider extends ChangeNotifier {
     selectedSalaryUpdate = 1000;
     genderUpdate = 'gender';
     hobbyList.clear();
-    isCricketUpdate = false;
-    isFootballUpdate = false;
-    isSingingUpdate = false;
+
     isActiveUpdate = false;
     selectedStreamUpdate = null;
   }
 
   void onTapUpdate() {
+    hobbyList.clear();
     txtUpdateFirstNameEditingController.text = userData[selectedIndex]['name'];
     txtUpdateMiddleEditingController.text = userData[selectedIndex]['middle'];
     txtUpdateLastNameEditingController.text =
         userData[selectedIndex]['lastName'];
     selectedSalaryUpdate = userData[selectedIndex]['salary'];
     genderUpdate = userData[selectedIndex]['gender'];
-    //hobbyList = userData[selectedIndex]['hobby'].map((e) => e).toList();
     if (userData[selectedIndex]['hobby'].contains('Cricket')) {
       isCricketUpdate = true;
     }
@@ -207,11 +189,22 @@ class SimpleCrudProvider extends ChangeNotifier {
     }
     selectedStreamUpdate = userData[selectedIndex]['stream'];
     isActiveUpdate = userData[selectedIndex]['active'];
+    //hobbyList = userData[selectedIndex]['hobby'].map((e) => e).toList();
 
     notifyListeners();
   }
 
   void updateMethod() {
+    hobbyList.clear();
+    if (isCricketUpdate == true) {
+      hobbyList.add('Cricket');
+    }
+    if (isFootballUpdate == true) {
+      hobbyList.add('Football');
+    }
+    if (isSingingUpdate == true) {
+      hobbyList.add('Singing');
+    }
     userData[selectedIndex]['name'] = txtUpdateFirstNameEditingController.text;
     userData[selectedIndex]['middle'] = txtUpdateMiddleEditingController.text;
 
