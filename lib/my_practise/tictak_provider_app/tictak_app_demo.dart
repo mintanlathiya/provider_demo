@@ -113,7 +113,7 @@ class _TicTacAppDemoUiState extends State<TicTacAppDemoUi> {
                 Consumer<TikTacmethodProvider>(
                   builder: (context, obj, child) => MaterialButton(
                     onPressed: () {
-                      obj.clearBoard();
+                      obj.allClear();
                     },
                     shape: BeveledRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
