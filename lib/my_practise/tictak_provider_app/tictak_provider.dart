@@ -137,20 +137,32 @@ class TikTacmethodProvider extends ChangeNotifier {
   void clearBoard() {
     for (int i = 0; i < 9; i++) {
       displayElement[i] = '';
-      cardColor[i] = Colors.red;
+      cardColor[i] = Colors.teal;
     }
 
     filledBoxes = 0;
     notifyListeners();
   }
 
-  void clearScoreBoard() {
+  void allClear() {
     xScore = 0;
     oScore = 0;
     for (int i = 0; i < 9; i++) {
       displayElement[i] = '';
-      cardColor[i] = Colors.red;
+      cardColor[i] = Colors.teal;
     }
+    filledBoxes = 0;
+
+    notifyListeners();
+  }
+
+  void clearScoreBoard() {
+    xScore = 0;
+    oScore = 0;
+    // for (int i = 0; i < 9; i++) {
+    //   displayElement[i] = '';
+    //   cardColor[i] = Colors.red;
+    // }
 
     filledBoxes = 0;
     notifyListeners();
