@@ -5,22 +5,16 @@ class SimpleCrudProvider extends ChangeNotifier {
   bool isCricketUpdate = false,
       isFootballUpdate = false,
       isSingingUpdate = false;
-
   String gender = 'gender', male = 'male', feMale = 'feMale';
   String genderUpdate = 'gender', maleUpdate = 'male', feMaleUpdate = 'feMale';
-
   List<String> stream = ['arts', 'commerce', 'science'];
   List<String> streamUpdate = ['arts', 'commerce', 'science'];
-
   String? selectedStream;
   String? selectedStreamUpdate;
-
   bool isActive = false;
   bool isActiveUpdate = false;
-
   double selectedSalary = 1000;
   double selectedSalaryUpdate = 1000;
-
   TextEditingController txtFirstNameEditingController = TextEditingController();
   TextEditingController txtMiddleEditingController = TextEditingController();
   TextEditingController txtLastNameEditingController = TextEditingController();
@@ -33,7 +27,6 @@ class SimpleCrudProvider extends ChangeNotifier {
   List<Map<String, dynamic>> userData = [];
   int selectedIndex = 0;
   List<String> hobbyList = [];
-
   bool isSubmited = false;
 
   void checkGender(String value) {
@@ -59,7 +52,6 @@ class SimpleCrudProvider extends ChangeNotifier {
 
   void cricketMethodDialog(bool value) {
     isCricketUpdate = value;
-
     notifyListeners();
   }
 
@@ -85,39 +77,33 @@ class SimpleCrudProvider extends ChangeNotifier {
 
   void streamMethod(String value) {
     selectedStream = value;
-
     notifyListeners();
   }
 
   void streamMethodDialog(String value) {
     selectedStreamUpdate = value;
-
     notifyListeners();
   }
 
   void switchMethod(bool value) {
     isSubmited = false;
     isActive = value;
-
     notifyListeners();
   }
 
   void switchMethodDialog(bool value) {
     isActiveUpdate = value;
-
     notifyListeners();
   }
 
   void sliderMethod(double value) {
     isSubmited = false;
     selectedSalary = value;
-
     notifyListeners();
   }
 
   void sliderMethodDialog(double value) {
     selectedSalaryUpdate = value;
-
     notifyListeners();
   }
 
@@ -165,7 +151,6 @@ class SimpleCrudProvider extends ChangeNotifier {
     selectedSalaryUpdate = 1000;
     genderUpdate = 'gender';
     hobbyList.clear();
-
     isActiveUpdate = false;
     selectedStreamUpdate = null;
   }
@@ -190,7 +175,6 @@ class SimpleCrudProvider extends ChangeNotifier {
     selectedStreamUpdate = userData[selectedIndex]['stream'];
     isActiveUpdate = userData[selectedIndex]['active'];
     //hobbyList = userData[selectedIndex]['hobby'].map((e) => e).toList();
-
     notifyListeners();
   }
 
@@ -207,7 +191,6 @@ class SimpleCrudProvider extends ChangeNotifier {
     }
     userData[selectedIndex]['name'] = txtUpdateFirstNameEditingController.text;
     userData[selectedIndex]['middle'] = txtUpdateMiddleEditingController.text;
-
     userData[selectedIndex]['lastName'] =
         txtUpdateLastNameEditingController.text;
     userData[selectedIndex]['salary'] = selectedSalaryUpdate;
@@ -220,26 +203,22 @@ class SimpleCrudProvider extends ChangeNotifier {
 
   void updateButton(dynamic context) {
     Navigator.pop(context);
-
     notifyListeners();
   }
 
   void cancleButton(dynamic context) {
     Navigator.pop(context);
-
     notifyListeners();
   }
 
   void deleteButton(dynamic context, index) {
     userData.removeAt(index);
     Navigator.pop(context);
-
     notifyListeners();
   }
 
   void cancleDeleteButton(dynamic context) {
     Navigator.pop(context);
-
     notifyListeners();
   }
 }
