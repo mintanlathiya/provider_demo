@@ -13,7 +13,6 @@ class ColorSwapProvider extends ChangeNotifier {
     Colors.grey
   ];
   int? firstIndex, secoundIndex;
-  bool click = true;
 
   void colorController(int index) {
     if (firstIndex == null) {
