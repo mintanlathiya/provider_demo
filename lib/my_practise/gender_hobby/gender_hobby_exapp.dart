@@ -197,7 +197,7 @@ class _GenderHobbyDemoUiState extends State<GenderHobbyDemoUi> {
                       child: Column(
                         children: [
                           Text(
-                              'Name :${obj.txtFirstNameEditingController.text} '),
+                              'Name :${obj.txtFirstNameEditingController.text}'),
                           Text(
                               'MiddleName :${obj.txtSurNameEditingController.text} '),
                           Text(

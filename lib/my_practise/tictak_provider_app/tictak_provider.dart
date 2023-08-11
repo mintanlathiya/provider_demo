@@ -163,7 +163,6 @@ class TikTacmethodProvider extends ChangeNotifier {
     //   displayElement[i] = '';
     //   cardColor[i] = Colors.red;
     // }
-
     filledBoxes = 0;
     notifyListeners();
   }

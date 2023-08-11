@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:provider_demo/my_practise/tictak_provider_app/tictak_app_demo.dart';
-import 'package:provider_demo/my_practise/tictak_provider_app/tictak_provider.dart';
+import 'package:provider_demo/my_practise/simple_crud_demo/simple_crud_demo_app.dart';
+import 'package:provider_demo/my_practise/simple_crud_demo/simple_crud_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,12 +16,12 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => TikTacmethodProvider(),
+          create: (context) => SimpleCrudProvider(),
         ),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: TicTacAppDemoUi(),
+        home: SimpleCrudDemoUi(),
       ),
     );
   }

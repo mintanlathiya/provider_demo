@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ColorSwapProvider extends ChangeNotifier {
+  bool flag = true;
   List<Color> colorList = [
     Colors.red,
     Colors.yellow,
@@ -28,6 +29,21 @@ class ColorSwapProvider extends ChangeNotifier {
       colorList[secoundIndex!] = temp;
       firstIndex = null;
       secoundIndex = null;
+    }
+    notifyListeners();
+  }
+/////////////////////////////////////////
+
+  void selectColors(int index) {
+    if (flag == true) {
+      firstIndex = index;
+      flag = false;
+    } else {
+      secoundIndex = index;
+      Color temp = colorList[firstIndex!];
+      colorList[firstIndex!] = colorList[secoundIndex!];
+      colorList[secoundIndex!] = temp;
+      flag = true;
     }
     notifyListeners();
   }

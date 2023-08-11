@@ -32,11 +32,9 @@ class _ColorChangeDemoUiState extends State<ColorChangeDemoUi> {
                   ),
                   children: List.generate(
                     obj.colorList.length,
-                    (index) => InkWell(
+                    (index) => GestureDetector(
                       onTap: () {
-                        context
-                            .read<ColorSwapProvider>()
-                            .colorController(index);
+                        context.read<ColorSwapProvider>().selectColors(index);
                       },
                       child: Container(
                         color: obj.colorList[index],
